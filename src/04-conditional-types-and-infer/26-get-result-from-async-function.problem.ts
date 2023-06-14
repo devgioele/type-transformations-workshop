@@ -10,7 +10,11 @@ const getServerSideProps = async () => {
   };
 };
 
-type InferPropsFromServerSideFunction = unknown;
+type InferPropsFromServerSideFunction<T> = T extends () => Promise<{
+  props: infer InferredProps;
+}>
+  ? InferredProps
+  : never;
 
 type tests = [
   Expect<

@@ -1,4 +1,5 @@
-type Route = unknown;
+// type Route = `/${string}` | `/${string}${Route}`;
+type Route = `/${string}`;
 
 export const goToRoute = (route: Route) => {};
 
@@ -14,3 +15,13 @@ goToRoute("/admin/users");
 goToRoute("users/1");
 // @ts-expect-error
 goToRoute("http://facebook.com");
+
+type Test = Capitalize<"hello">;
+
+type MyCapitalize<T extends string> = T extends ""
+  ? T
+  : T extends [infer Head, ...infer Tail]
+  ? `${Capitalize<Head>}${Tail}`
+  : never;
+
+type Test2 = MyCapitalize<"hello">;
